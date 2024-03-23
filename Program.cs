@@ -1,25 +1,19 @@
-var builder = WebApplication.CreateBuilder(args);
+using KaibaSystem_Back_End.Extensions;
+using KaibaSystem_Back_End.Extensions.Helpers;
 
-// Add services to the container.
+WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
+NativeInjector.RegisterBuild(builder);
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+IServiceCollection services = builder.Services;
+NativeInjector.RegisterServices(services);
 
-var app = builder.Build();
+WebApplication? app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
+NativeInjector.ConfigureApp(app, app.Environment);
 app.MapControllers();
+
+Console.WriteLine($"==========================================================");
+Console.WriteLine($"App Started running in {DateTime.Now:dd/MM/yyyy HH:mm:ss}");
+Console.WriteLine($"==========================================================");
 
 app.Run();
