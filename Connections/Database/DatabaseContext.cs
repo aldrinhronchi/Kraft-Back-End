@@ -1,4 +1,5 @@
 ﻿using KaibaSystem_Back_End.Models.Entities;
+using KaibaSystem_Back_End.Models.Usuario;
 using Microsoft.EntityFrameworkCore;
 
 namespace KaibaSystem_Back_End.Connections.Database
@@ -14,6 +15,9 @@ namespace KaibaSystem_Back_End.Connections.Database
         }
 
         #region Dbset
+
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Cargo> Cargos { get; set; }
 
         public DbSet<Erro> ErrosLog { get; set; }
         public DbSet<Ocorrencia> OcorrenciaLog { get; set; }

@@ -23,8 +23,7 @@
   <ItemGroup>
     <Folder Include="Connections\Scripts\" />
     <Folder Include="Extensions\Workers\" />
-    <Folder Include="Files\" />
-    <Folder Include="Models\ViewModels\" />
+    <Folder Include="Files\Debug\" />
   </ItemGroup>
 
 </Project>

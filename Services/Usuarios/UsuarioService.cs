@@ -1,0 +1,219 @@
+﻿using KaibaSystem_Back_End.Connections.Database;
+using KaibaSystem_Back_End.Connections.Database.Repositories;
+using KaibaSystem_Back_End.Connections.Database.Repositories.Interfaces;
+using KaibaSystem_Back_End.Extensions.Helpers;
+using KaibaSystem_Back_End.Models.Usuario;
+using KaibaSystem_Back_End.Models.ViewModels;
+using KaibaSystem_Back_End.Services.Usuarios.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace KaibaSystem_Back_End.Services.Usuarios
+{
+    public class UsuarioService : IUsuarioService
+    {
+        public UsuarioService()
+        {
+        }
+
+        public RequisicaoViewModel<Usuario> Listar(Int32 Pagina, Int32 RegistrosPorPagina,
+         String CamposQuery = "", String ValoresQuery = "", String Ordenacao = "", Boolean Ordem = false)
+        {
+            RequisicaoViewModel<Usuario> Requisicao;
+            using (DatabaseContext db = new DatabaseContext())
+            {
+                IQueryable<Usuario> _Usuarios = db.Usuarios.Include(x => x.Cargo);
+                if (!String.IsNullOrWhiteSpace(CamposQuery))
+                {
+                    String[] CamposArray = CamposQuery.Split(";|;");
+                    String[] ValoresArray = ValoresQuery.Split(";|;");
+                    if (CamposArray.Length == ValoresArray.Length)
+                    {
+                        Dictionary<String, String> Filtros = new Dictionary<String, String>();
+                        for (Int32 index = 0; index < CamposArray.Length; index++)
+                        {
+                            String? Campo = CamposArray[index];
+                            String? Valor = ValoresArray[index];
+                            if (!(String.IsNullOrWhiteSpace(Campo) && String.IsNullOrWhiteSpace(Valor)))
+                            {
+                                Filtros.Add(Campo, Valor);
+                            }
+                        }
+                        IQueryable<Usuario> UsuarioFiltrado = _Usuarios;
+                        foreach (KeyValuePair<String, String> Filtro in Filtros)
+                        {
+                            switch (Filtro.Key)
+                            {
+                                case "CargoNome":
+                                    UsuarioFiltrado = UsuarioFiltrado.Where(x => x.Cargo.Nome.ToUpper().Contains(Filtro.Value.ToUpper()));
+                                    break;
+
+                                default:
+                                    UsuarioFiltrado = TipografiaHelper.Filtrar(UsuarioFiltrado, Filtro.Key, Filtro.Value);
+                                    break;
+                            }
+                        }
+                        _Usuarios = UsuarioFiltrado;
+                    }
+                    else
+                    {
+                        throw new ValidationException("Não foi possivel filtrar!");
+                    }
+                }
+                if (!String.IsNullOrWhiteSpace(Ordenacao))
+                {
+                    switch (Ordenacao)
+                    {
+                        case "CargoNome":
+                            if (Ordem)
+                            {
+                                _Usuarios = _Usuarios.OrderBy(x => x.Cargo.Nome);
+                            }
+                            else
+                            {
+                                _Usuarios = _Usuarios.OrderByDescending(x => x.Cargo.Nome);
+                            }
+                            break;
+
+                        default:
+                            _Usuarios = TipografiaHelper.Ordenar(_Usuarios, Ordenacao, Ordem);
+                            break;
+                    }
+                }
+                else
+                {
+                    _Usuarios = TipografiaHelper.Ordenar(_Usuarios, "ID", Ordem);
+                }
+                Requisicao = TipografiaHelper.FormatarRequisicao(_Usuarios, Pagina, RegistrosPorPagina);
+            }
+            return Requisicao;
+        }
+
+        public Boolean Salvar(Usuario UsuarioViewModel)
+        {
+            Validator.ValidateObject(UsuarioViewModel, new ValidationContext(UsuarioViewModel), true);
+            using (DatabaseContext db = new DatabaseContext())
+            {
+                Cargo? _Cargo = db.Cargos.Find(UsuarioViewModel.IDCargo);
+                if (_Cargo == null)
+                {
+                    throw new ValidationException("Cargo invalido!");
+                }
+                else
+                {
+                    if (!_Cargo.Ativo)
+                    {
+                        throw new ValidationException("Cargo invalido!");
+                    }
+                }
+                IRepository<Usuario> UsuarioRepo = new Repository<Usuario>(db);
+                Usuario? _Usuario = db.Usuarios.AsNoTracking().FirstOrDefault(x => x.ID == UsuarioViewModel.ID);
+                if (_Usuario == null)
+                {
+                    if (UsuarioViewModel.ID != 0)
+                    {
+                        throw new ValidationException("ID deve ser vazio!");
+                    }
+                    UsuarioViewModel.Senha = EncriptarSenha(UsuarioViewModel.Senha);
+                    _Usuario = db.Usuarios.AsNoTracking().FirstOrDefault(x => x.Login == UsuarioViewModel.Login || x.Email == UsuarioViewModel.Email);
+                    if (_Usuario == null)
+                    {
+                        UsuarioViewModel.DataCriado = DateTime.Now;
+                        UsuarioRepo.Create(UsuarioViewModel);
+                    }
+                    else
+                    {
+                        throw new ValidationException("Email/Login já cadastrado");
+                    }
+                }
+                else
+                {
+                    UsuarioViewModel.DataAlterado = DateTime.Now;
+                    if (UsuarioViewModel.Senha == String.Empty)
+                    {
+                        UsuarioViewModel.Senha = _Usuario.Senha;
+                    }
+                    else
+                    {
+                        UsuarioViewModel.Senha = EncriptarSenha(UsuarioViewModel.Senha);
+                    }
+                    UsuarioRepo.Update(UsuarioViewModel);
+                }
+            }
+
+            return true;
+        }
+
+        public Boolean Excluir(String ID)
+        {
+            if (!Int32.TryParse(ID, out Int32 UsuarioID))
+            {
+                throw new ValidationException("ID invalido!");
+            }
+            using (DatabaseContext db = new DatabaseContext())
+            {
+                IRepository<Usuario> UsuarioRepo = new Repository<Usuario>(db);
+
+                Usuario? _Usuario = UsuarioRepo.Find(UsuarioID);
+                if (_Usuario == null)
+                {
+                    throw new ValidationException("Usuario não encontrado");
+                }
+                return UsuarioRepo.Delete(_Usuario);
+            }
+        }
+
+        public RequisicaoViewModel<Usuario> Autenticar(LoginViewModel Requisicao)
+        {
+            if (String.IsNullOrWhiteSpace(Requisicao.Login) || String.IsNullOrWhiteSpace(Requisicao.Senha))
+            {
+                throw new ValidationException("Login/Senha obrigatorios.");
+            }
+
+            Requisicao.Senha = EncriptarSenha(Requisicao.Senha);
+            List<Usuario>? Usuarios = null;
+            using (DatabaseContext db = new DatabaseContext())
+            {
+                Usuarios = db.Usuarios.Where(x => (x.Email.ToUpper() == Requisicao.Login.ToUpper() || x.Login.ToUpper() == Requisicao.Login.ToUpper())
+                                                 && x.Ativo).ToList();
+            }
+            if (Usuarios == null || Usuarios.Count() == 0)
+            {
+                throw new ValidationException("Usuario não encontrado");
+            }
+
+            Usuario? usuario = Usuarios.FirstOrDefault(x => x.Senha == Requisicao.Senha);
+            if (usuario == null)
+            {
+                throw new ValidationException("Senha Incorreta");
+            }
+
+            usuario.Token = TokenHelper.GerarToken(usuario);
+            RequisicaoViewModel<Usuario> requisicao = new RequisicaoViewModel<Usuario>()
+            {
+                Data = new List<Usuario>() { usuario },
+                Page = 1,
+                PageSize = 10,
+                Type = nameof(Usuario)
+            };
+            return requisicao;
+        }
+
+        private String EncriptarSenha(String Senha)
+        {
+            HashAlgorithm sha = SHA1.Create();
+
+            Byte[] encryptedPassword = sha.ComputeHash(Encoding.UTF8.GetBytes(Senha));
+
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (Byte caracter in encryptedPassword)
+            {
+                stringBuilder.Append(caracter.ToString("X2"));
+            }
+
+            return stringBuilder.ToString();
+        }
+    }
+}

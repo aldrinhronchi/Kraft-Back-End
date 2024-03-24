@@ -364,4 +364,6 @@ FodyWeavers.xsd
 
 
 #Upload Files
-[Ff]iles/*
+[Ff]iles/Debug/*
+
+
