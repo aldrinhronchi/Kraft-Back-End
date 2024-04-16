@@ -21,6 +21,9 @@ namespace KaibaSystem_Back_End.Connections.Database
 
         public DbSet<Erro> ErrosLog { get; set; }
         public DbSet<Ocorrencia> OcorrenciaLog { get; set; }
+        public DbSet<Permissoes> Permissoes { get; internal set; }
+        public DbSet<Modulo> Modulos { get; internal set; }
+        public DbSet<Pagina> Paginas { get; internal set; }
 
         #endregion Dbset
 
@@ -42,7 +45,7 @@ namespace KaibaSystem_Back_End.Connections.Database
                                                                          .SetBasePath(Environment.CurrentDirectory)
                                                                          .AddJsonFile("appsettings.json")
                                                                          .Build();
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("SotequiDB"));
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DatabaseDB"));
         }
     }
 }

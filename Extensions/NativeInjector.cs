@@ -10,6 +10,8 @@ using System.Text;
 using KaibaSystem_Back_End.Connections.Database;
 using KaibaSystem_Back_End.Services.Core.Interfaces;
 using KaibaSystem_Back_End.Services.Core;
+using KaibaSystem_Back_End.Services.Usuarios.Interfaces;
+using KaibaSystem_Back_End.Services.Usuarios;
 
 namespace KaibaSystem_Back_End.Extensions
 {
@@ -20,6 +22,7 @@ namespace KaibaSystem_Back_End.Extensions
             #region Services
 
             services.AddScoped<ICoreService, CoreService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
 
             #endregion Services
 
