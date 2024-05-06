@@ -12,6 +12,8 @@ using KaibaSystem_Back_End.Services.Core.Interfaces;
 using KaibaSystem_Back_End.Services.Core;
 using KaibaSystem_Back_End.Services.Usuarios.Interfaces;
 using KaibaSystem_Back_End.Services.Usuarios;
+using KaibaSystem_Back_End.Services.DevBoard.Interface;
+using KaibaSystem_Back_End.Services.DevBoard;
 
 namespace KaibaSystem_Back_End.Extensions
 {
@@ -23,6 +25,7 @@ namespace KaibaSystem_Back_End.Extensions
 
             services.AddScoped<ICoreService, CoreService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IDevBoardService, DevBoardService>();
 
             #endregion Services
 

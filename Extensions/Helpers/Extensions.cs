@@ -365,5 +365,39 @@ namespace KaibaSystem_Back_End.Extensions.Helpers
                 .Select(x => x.Select(v => v.Value).ToList())
                 .ToList();
         }
+
+        public static string DataTableToJSON(this DataTable tabela)
+        {
+            StringBuilder JSONString = new StringBuilder();
+            if (tabela.Rows.Count > 0)
+            {
+                JSONString.Append("[");
+                for (int i = 0; i < tabela.Rows.Count; i++)
+                {
+                    JSONString.Append("{");
+                    for (int j = 0; j < tabela.Columns.Count; j++)
+                    {
+                        if (j < tabela.Columns.Count - 1)
+                        {
+                            JSONString.Append("\"" + tabela.Columns[j].ColumnName.ToString() + "\":" + "\"" + tabela.Rows[i][j].ToString() + "\",");
+                        }
+                        else if (j == tabela.Columns.Count - 1)
+                        {
+                            JSONString.Append("\"" + tabela.Columns[j].ColumnName.ToString() + "\":" + "\"" + tabela.Rows[i][j].ToString() + "\"");
+                        }
+                    }
+                    if (i == tabela.Rows.Count - 1)
+                    {
+                        JSONString.Append("}");
+                    }
+                    else
+                    {
+                        JSONString.Append("},");
+                    }
+                }
+                JSONString.Append("]");
+            }
+            return JSONString.ToString();
+        }
     }
 }
