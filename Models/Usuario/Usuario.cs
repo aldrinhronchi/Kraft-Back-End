@@ -1,7 +1,7 @@
-﻿using KaibaSystem_Back_End.Models.Entities;
+﻿using Kraft_Back_CS.Models.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace KaibaSystem_Back_End.Models.Usuario
+namespace Kraft_Back_CS.Models.Usuario
 {
     [Table("Usuarios")]
     public class Usuario : Entity

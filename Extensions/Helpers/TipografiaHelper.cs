@@ -1,9 +1,9 @@
-﻿using KaibaSystem_Back_End.Models.ViewModels;
+﻿using Kraft_Back_CS.Models.ViewModels;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace KaibaSystem_Back_End.Extensions.Helpers
+namespace Kraft_Back_CS.Extensions.Helpers
 {
     /// <summary>
     /// Helper para efetuar as ações de paginação e filtragem

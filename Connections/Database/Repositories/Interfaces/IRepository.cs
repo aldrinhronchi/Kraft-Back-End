@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace KaibaSystem_Back_End.Connections.Database.Repositories.Interfaces
+namespace Kraft_Back_CS.Connections.Database.Repositories.Interfaces
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : class
     {

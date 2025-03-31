@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Net;
 using System.Text.Json;
-using KaibaSystem_Back_End.Models.Entities;
-using KaibaSystem_Back_End.Extensions.Helpers;
-using KaibaSystem_Back_End.Connections.Database;
+using Kraft_Back_CS.Models.Entities;
+using Kraft_Back_CS.Extensions.Helpers;
+using Kraft_Back_CS.Connections.Database;
 
-namespace KaibaSystem_Back_End.Extensions.Middlewares
+namespace Kraft_Back_CS.Extensions.Middlewares
 {
     public class ErrorMiddleware
     {

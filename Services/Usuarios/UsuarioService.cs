@@ -1,16 +1,16 @@
-﻿using KaibaSystem_Back_End.Connections.Database;
-using KaibaSystem_Back_End.Connections.Database.Repositories;
-using KaibaSystem_Back_End.Connections.Database.Repositories.Interfaces;
-using KaibaSystem_Back_End.Extensions.Helpers;
-using KaibaSystem_Back_End.Models.Usuario;
-using KaibaSystem_Back_End.Models.ViewModels;
-using KaibaSystem_Back_End.Services.Usuarios.Interfaces;
+﻿using Kraft_Back_CS.Connections.Database;
+using Kraft_Back_CS.Connections.Database.Repositories;
+using Kraft_Back_CS.Connections.Database.Repositories.Interfaces;
+using Kraft_Back_CS.Extensions.Helpers;
+using Kraft_Back_CS.Models.Usuario;
+using Kraft_Back_CS.Models.ViewModels;
+using Kraft_Back_CS.Services.Usuarios.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace KaibaSystem_Back_End.Services.Usuarios
+namespace Kraft_Back_CS.Services.Usuarios
 {
     public class UsuarioService : IUsuarioService
     {

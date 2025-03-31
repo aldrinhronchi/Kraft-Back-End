@@ -1,4 +1,4 @@
-﻿namespace KaibaSystem_Back_End.Models.Entities
+﻿namespace Kraft_Back_CS.Models.Entities
 {
     /// <summary>
     /// Classe Pai contendo o basico para boa parte dos cadastros <br/>

@@ -1,4 +1,4 @@
-﻿namespace KaibaSystem_Back_End.Models.Usuario
+﻿namespace Kraft_Back_CS.Models.Usuario
 {
     public class Permissoes
     {

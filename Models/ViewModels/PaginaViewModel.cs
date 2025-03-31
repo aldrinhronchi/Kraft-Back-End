@@ -1,4 +1,4 @@
-﻿namespace KaibaSystem_Back_End.Models.ViewModels
+﻿namespace Kraft_Back_CS.Models.ViewModels
 {
     /// <summary>
     /// View Model (Sem Registros no DB) da Página para ser usada no Front-End

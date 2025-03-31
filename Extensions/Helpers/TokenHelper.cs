@@ -1,11 +1,11 @@
-﻿using KaibaSystem_Back_End.Extensions.Middlewares;
-using KaibaSystem_Back_End.Models.Usuario;
+﻿using Kraft_Back_CS.Extensions.Middlewares;
+using Kraft_Back_CS.Models.Usuario;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace KaibaSystem_Back_End.Extensions.Helpers
+namespace Kraft_Back_CS.Extensions.Helpers
 {
     /// <summary>
     /// Helper para efetuar as ações relacionadas ao Token JWT

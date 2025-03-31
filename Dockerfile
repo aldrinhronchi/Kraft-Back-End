@@ -9,17 +9,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["KaibaSystem-Back-End.csproj", "."]
-RUN dotnet restore "./KaibaSystem-Back-End.csproj"
+COPY ["KraftSystem-Back-End.csproj", "."]
+RUN dotnet restore "./KraftSystem-Back-End.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "./KaibaSystem-Back-End.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./KraftSystem-Back-End.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./KaibaSystem-Back-End.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./KraftSystem-Back-End.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "KaibaSystem-Back-End.dll"]
+ENTRYPOINT ["dotnet", "KraftSystem-Back-End.dll"]

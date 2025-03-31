@@ -1,6 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 
-namespace KaibaSystem_Back_End.Connections.Configurations
+namespace Kraft_Back_CS.Connections.Configurations
 {
     public static class SwaggerSetup
     {

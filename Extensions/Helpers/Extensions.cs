@@ -2,6 +2,7 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
+using System.Globalization;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -9,7 +10,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace KaibaSystem_Back_End.Extensions.Helpers
+namespace Kraft_Back_CS.Extensions.Helpers
 {
     public static class Extensions
     {
@@ -398,6 +399,19 @@ namespace KaibaSystem_Back_End.Extensions.Helpers
                 JSONString.Append("]");
             }
             return JSONString.ToString();
+        }
+
+        public static string RemoveAccents(string text)
+        {
+            StringBuilder sbReturn = new StringBuilder();
+            var arrayText = text.Normalize(NormalizationForm.FormD).ToCharArray();
+            foreach (char letter in arrayText)
+            {
+                if (CharUnicodeInfo.GetUnicodeCategory(letter) != UnicodeCategory.NonSpacingMark)
+                    sbReturn.Append(letter);
+            }
+
+            return sbReturn.ToString();
         }
     }
 }

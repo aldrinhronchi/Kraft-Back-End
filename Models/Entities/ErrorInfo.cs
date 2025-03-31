@@ -1,4 +1,4 @@
-﻿namespace KaibaSystem_Back_End.Models.Entities
+﻿namespace Kraft_Back_CS.Models.Entities
 {
     /// <summary>
     /// View Model (Sem Registros no DB) para padronizar a comunicação do Back-End com o Front-End, trazendo a exibição dos erros.

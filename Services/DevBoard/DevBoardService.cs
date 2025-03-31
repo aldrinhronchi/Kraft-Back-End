@@ -1,15 +1,17 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
-using KaibaSystem_Back_End.Extensions.Helpers;
-using KaibaSystem_Back_End.Services.DevBoard.Interface;
+using Kraft_Back_CS.Extensions.Helpers;
+using Kraft_Back_CS.Services.DevBoard.Interface;
 using System.Data;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace KaibaSystem_Back_End.Services.DevBoard
+namespace Kraft_Back_CS.Services.DevBoard
 {
     public class DevBoardService : IDevBoardService
     {
+        #region Excel to JSON
+
         public String ConvertExcelToJSON(String Path)
         {
             var dt = new DataTable();
@@ -67,28 +69,6 @@ namespace KaibaSystem_Back_End.Services.DevBoard
             }
         }
 
-        public static int GetIndex(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                return -1;
-            }
-
-            int index = 0;
-            foreach (var ch in name)
-            {
-                if (char.IsLetter(ch))
-                {
-                    int value = ch - 'A' + 1;
-                    index = value + index * 26;
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            return index - 1;
-        }
+        #endregion Excel to JSON
     }
 }

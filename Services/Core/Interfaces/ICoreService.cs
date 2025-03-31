@@ -1,6 +1,6 @@
-﻿using KaibaSystem_Back_End.Models.ViewModels;
+﻿using Kraft_Back_CS.Models.ViewModels;
 
-namespace KaibaSystem_Back_End.Services.Core.Interfaces
+namespace Kraft_Back_CS.Services.Core.Interfaces
 {
     public interface ICoreService
     {

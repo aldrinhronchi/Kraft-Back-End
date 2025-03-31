@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace KaibaSystem_Back_End.Models.Entities
+namespace Kraft_Back_CS.Models.Entities
 {
     [Table("ErrosLog")]
     public class Erro

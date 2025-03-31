@@ -1,8 +1,8 @@
-﻿using KaibaSystem_Back_End.Models.Entities;
-using KaibaSystem_Back_End.Models.Usuario;
+﻿using Kraft_Back_CS.Models.Entities;
+using Kraft_Back_CS.Models.Usuario;
 using Microsoft.EntityFrameworkCore;
 
-namespace KaibaSystem_Back_End.Connections.Database
+namespace Kraft_Back_CS.Connections.Database
 {
     public class DatabaseContext : DbContext
     {

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using KaibaSystem_Back_End.Connections.Database.Repositories.Interfaces;
+using Kraft_Back_CS.Connections.Database.Repositories.Interfaces;
 
-namespace KaibaSystem_Back_End.Connections.Database.Repositories
+namespace Kraft_Back_CS.Connections.Database.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {

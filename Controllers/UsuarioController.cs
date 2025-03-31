@@ -1,10 +1,10 @@
-﻿using KaibaSystem_Back_End.Models.Usuario;
-using KaibaSystem_Back_End.Models.ViewModels;
-using KaibaSystem_Back_End.Services.Usuarios.Interfaces;
+﻿using Kraft_Back_CS.Models.Usuario;
+using Kraft_Back_CS.Models.ViewModels;
+using Kraft_Back_CS.Services.Usuarios.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KaibaSystem_Back_End.Controllers
+namespace Kraft_Back_CS.Controllers
 {
     [Authorize]
     [Route("api/[controller]/[action]")]

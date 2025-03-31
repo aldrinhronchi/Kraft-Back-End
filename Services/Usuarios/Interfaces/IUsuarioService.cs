@@ -1,7 +1,7 @@
-﻿using KaibaSystem_Back_End.Models.Usuario;
-using KaibaSystem_Back_End.Models.ViewModels;
+﻿using Kraft_Back_CS.Models.Usuario;
+using Kraft_Back_CS.Models.ViewModels;
 
-namespace KaibaSystem_Back_End.Services.Usuarios.Interfaces
+namespace Kraft_Back_CS.Services.Usuarios.Interfaces
 {
     public interface IUsuarioService
     {

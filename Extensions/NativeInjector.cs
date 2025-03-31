@@ -1,5 +1,5 @@
-﻿using KaibaSystem_Back_End.Connections.Configurations;
-using KaibaSystem_Back_End.Extensions.Middlewares;
+﻿using Kraft_Back_CS.Connections.Configurations;
+using Kraft_Back_CS.Extensions.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Hosting;
@@ -7,20 +7,26 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using KaibaSystem_Back_End.Connections.Database;
-using KaibaSystem_Back_End.Services.Core.Interfaces;
-using KaibaSystem_Back_End.Services.Core;
-using KaibaSystem_Back_End.Services.Usuarios.Interfaces;
-using KaibaSystem_Back_End.Services.Usuarios;
-using KaibaSystem_Back_End.Services.DevBoard.Interface;
-using KaibaSystem_Back_End.Services.DevBoard;
+using Kraft_Back_CS.Connections.Database;
+using Kraft_Back_CS.Services.Core.Interfaces;
+using Kraft_Back_CS.Services.Core;
+using Kraft_Back_CS.Services.Usuarios.Interfaces;
+using Kraft_Back_CS.Services.Usuarios;
+using Kraft_Back_CS.Services.DevBoard.Interface;
+using Kraft_Back_CS.Services.DevBoard;
 
-namespace KaibaSystem_Back_End.Extensions
+namespace Kraft_Back_CS.Extensions
 {
     public class NativeInjector
     {
         public static void RegisterServices(IServiceCollection services)
         {
+            services.AddLogging(logging =>
+            {
+                logging.AddConsole();
+                logging.SetMinimumLevel(LogLevel.Debug);
+            });
+
             #region Services
 
             services.AddScoped<ICoreService, CoreService>();
@@ -70,7 +76,8 @@ namespace KaibaSystem_Back_End.Extensions
                     ValidateAudience = true,
                     ValidAudience = builder.Configuration["Jwt:Audience"],
                     ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+
                 };
             });
 

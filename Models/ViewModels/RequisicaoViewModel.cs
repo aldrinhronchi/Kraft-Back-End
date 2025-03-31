@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace KaibaSystem_Back_End.Models.ViewModels
+namespace Kraft_Back_CS.Models.ViewModels
 {
     /// <summary>
     /// View Model (Sem Registros no DB) para padronizar a comunicação do Back-End com o Front-End

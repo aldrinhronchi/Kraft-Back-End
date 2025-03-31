@@ -1,8 +1,8 @@
-﻿using KaibaSystem_Back_End.Services.Core.Interfaces;
+﻿using Kraft_Back_CS.Services.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KaibaSystem_Back_End.Controllers
+namespace Kraft_Back_CS.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]
@@ -15,6 +15,7 @@ namespace KaibaSystem_Back_End.Controllers
         {
             this.coreService = CoreService;
         }
+
         [HttpGet("{IDCargo}")]
         public ActionResult Index(String IDCargo)
         {

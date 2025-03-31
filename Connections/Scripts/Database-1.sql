@@ -95,3 +95,32 @@ GO
 
 
 
+/****** Relacionamento entre tabelas ******/
+
+/** OcorrenciaLog - Relacionamento com ErrosLog **/
+ALTER TABLE OcorrenciaLog
+ADD CONSTRAINT FK_OcorrenciaLog_IDErro FOREIGN KEY (IDErro)
+REFERENCES ErrosLog(ID);
+
+/** Paginas - Relacionamento com Modulos **/
+ALTER TABLE Paginas
+ADD CONSTRAINT FK_Paginas_IDModulo FOREIGN KEY (IDModulo)
+REFERENCES Modulos(ID);
+
+/** Permissoes - Relacionamento com Cargos, Modulos e Paginas **/
+ALTER TABLE Permissoes
+ADD CONSTRAINT FK_Permissoes_IDCargo FOREIGN KEY (IDCargo)
+REFERENCES Cargos(ID);
+
+ALTER TABLE Permissoes
+ADD CONSTRAINT FK_Permissoes_IDModulo FOREIGN KEY (IDModulo)
+REFERENCES Modulos(ID);
+
+ALTER TABLE Permissoes
+ADD CONSTRAINT FK_Permissoes_IDPagina FOREIGN KEY (IDPagina)
+REFERENCES Paginas(ID);
+
+/** Usuarios - Relacionamento com Cargos **/
+ALTER TABLE Usuarios
+ADD CONSTRAINT FK_Usuarios_IDCargo FOREIGN KEY (IDCargo)
+REFERENCES Cargos(ID);

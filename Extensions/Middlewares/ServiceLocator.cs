@@ -1,4 +1,4 @@
-﻿namespace KaibaSystem_Back_End.Extensions.Middlewares
+﻿namespace Kraft_Back_CS.Extensions.Middlewares
 {
     public class ServiceLocator
     {

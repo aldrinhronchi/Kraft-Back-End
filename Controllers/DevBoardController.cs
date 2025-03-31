@@ -1,9 +1,9 @@
-﻿using KaibaSystem_Back_End.Services.DevBoard;
-using KaibaSystem_Back_End.Services.DevBoard.Interface;
+﻿using Kraft_Back_CS.Services.DevBoard;
+using Kraft_Back_CS.Services.DevBoard.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KaibaSystem_Back_End.Controllers
+namespace Kraft_Back_CS.Controllers
 {
     [Authorize]
     [Route("api/[controller]/[action]")]
@@ -16,10 +16,12 @@ namespace KaibaSystem_Back_End.Controllers
         {
             this.DevBoardService = DevBoardService;
         }
+
         [AllowAnonymous]
         [HttpGet]
         public IActionResult ReadExcelToJson(String Path)
         {
+            Path = Path.Contains('"') ? Path.Remove('"') : Path;
             return Ok(this.DevBoardService.ConvertExcelToJSON(Path));
         }
     }

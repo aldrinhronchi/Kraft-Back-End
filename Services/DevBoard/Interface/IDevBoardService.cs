@@ -1,4 +1,4 @@
-﻿namespace KaibaSystem_Back_End.Services.DevBoard.Interface
+﻿namespace Kraft_Back_CS.Services.DevBoard.Interface
 {
     public interface IDevBoardService
     {

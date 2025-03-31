@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace KaibaSystem_Back_End.Models.Usuario
+namespace Kraft_Back_CS.Models.Usuario
 {
     [Table("Paginas")]
     public class Pagina

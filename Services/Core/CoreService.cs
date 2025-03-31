@@ -1,10 +1,10 @@
-﻿using KaibaSystem_Back_End.Connections.Database;
-using KaibaSystem_Back_End.Models.Usuario;
-using KaibaSystem_Back_End.Models.ViewModels;
-using KaibaSystem_Back_End.Services.Core.Interfaces;
+﻿using Kraft_Back_CS.Connections.Database;
+using Kraft_Back_CS.Models.Usuario;
+using Kraft_Back_CS.Models.ViewModels;
+using Kraft_Back_CS.Services.Core.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
-namespace KaibaSystem_Back_End.Services.Core
+namespace Kraft_Back_CS.Services.Core
 {
     public class CoreService : ICoreService
     {
