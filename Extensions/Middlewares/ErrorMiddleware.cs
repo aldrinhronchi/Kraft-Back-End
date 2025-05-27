@@ -73,7 +73,7 @@ namespace Kraft_Back_CS.Extensions.Middlewares
 
                             Erro Falha = new Erro()
                             {
-                                Aplicacao = Aplicacao.Count() == 2 ? $"{Aplicacao[0]} | {Aplicacao[1]}" : "Sotequi | Geral",
+                                Aplicacao = Aplicacao.Count() == 2 ? $"{Aplicacao[0]} | {Aplicacao[1]}" : "Kraft | Geral",
                                 Data = DateTime.Now,
                                 Tipo = exception.GetType().ToString(),
                                 Nome = exception.TargetSite != null ? exception.TargetSite.Name : string.Empty,

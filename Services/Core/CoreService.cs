@@ -55,6 +55,7 @@ namespace Kraft_Back_CS.Services.Core
                         {
                             Nome = Pagina.Nome,
                             Url = Pagina.Url ?? Pagina.Nome.ToLower(),
+                            Icone = Pagina.Icone,
                             Autorizacao = new AutorizacaoViewModel()
                             {
                                 Criar = PermissaoPagina.Criar,

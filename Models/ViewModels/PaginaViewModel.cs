@@ -14,7 +14,7 @@
         /// Url da Página, tendo valor padrão de enviar para a Tela de Login
         /// </summary>
         public String Url { get; set; } = "/";
-
+        public String Icone { get; set; }
         public AutorizacaoViewModel Autorizacao { get; set; }
     }
 }
